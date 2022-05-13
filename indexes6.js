@@ -1,75 +1,56 @@
-// const e = require("express")
+console.log('this is Es6 version of Book-Library Project.')
 
-console.log("In this we will write code for to add book to DOM ")
-
-
-// Todos"
-// 1. Store all the data to the localStorage
-// 2. Give another column as an option to delete the book
-// 3. Add a scroll bar to the view
-
-
-
-// Constructor
-function Book(givenBookName, givenAuthorName, givenType) {
-    this.name = givenBookName
-    this.author = givenAuthorName
-    this.type = givenType
-
+class Book {
+    constructor(givenBookName, givenAuthorName, givenType) {
+        this.name = givenBookName
+        this.author = givenAuthorName
+        this.type = givenType
+    }
 };
 
 
+class Display {
 
 
-// Display constructor
-function Display() {
-
-}
-
-
-
-
-// Add method to display prototype  
-
-// for add in display    ->  this will contain tamplate of html dom which will be shown at display
-Display.prototype.add = function (book) {
-    console.log("adding to UI")
-    let tableBody = document.getElementById("tableBody");
-    let uiString = `<tr>
+    add(book) {
+        console.log("adding to UI")
+        let tableBody = document.getElementById("tableBody");
+        let uiString = `<tr>
                         <td>${book.name}</td>
                         <td>${book.author}</td>
                         <td>${book.type}</td>
                     </tr>`
-    tableBody.innerHTML += uiString;
-    console.log(tableBody)
-}
-
-// for clear the data after submiting
-Display.prototype.clear = function () {
-    let libraryForm = document.getElementById("libraryForm");
-    libraryForm.reset()    // this reset() function will reset the form again
-}
-
-// implementing the validation (if user will paas all values to form then it is validate for our web other wise not)
-Display.prototype.validate = function (book) {
-    if (book.name.length < 2 || book.author.length < 2) {
-        return false
-    } else {
-        return true
+        tableBody.innerHTML += uiString;
+        console.log(tableBody)
     }
-}
 
 
+    clear() {
+        let libraryForm = document.getElementById("libraryForm");
+        libraryForm.reset()    // this reset() function will reset the form again
+    }
 
-Display.prototype.show = function (type, displayMassage) {
-    let massage = document.getElementById("massage");
-    massage.innerHTML += `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+
+    validate(book) {
+        if (book.name.length < 2 || book.author.length < 2) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+
+    show(type, displayMassage) {
+        let massage = document.getElementById("massage");
+        massage.innerHTML += `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
                                 <strong>Holy guacamole!</strong> ${displayMassage}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                              </div>`
-    setTimeout(() => {
-        massage.innerHTML = ""
-    }, 2000);
+        setTimeout(() => {
+            massage.innerHTML = ""
+        }, 2000);
+    }
+
 }
 
 
@@ -83,6 +64,9 @@ function libraryFormSubmit(event) {
     let name = document.getElementById("bookName").value;
     let author = document.getElementById("author").value;
     let type;
+    // console.log(name)
+    // console.log(author)
+
 
     // fiction, programming, cooking
     let fiction = document.getElementById("fiction");
@@ -98,7 +82,7 @@ function libraryFormSubmit(event) {
     else if (cooking.checked) {
         type = cooking.value
     }
-
+    // console.log(type)
     let book = new Book(name, author, type)
     console.log(book)
 
